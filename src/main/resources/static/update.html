@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>edit_modify</title>
+    <link rel="stylesheet" href="bs/css/bootstrap.css">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script src="bs/js/bootstrap.js"></script>
+    <style type="text/css">
+        body {
+            background:url(picture/bannerbg.png);
+            background-size: cover;
+            opacity: 0.9;
+        }
+
+        * {
+            font-size: 24px;
+            font-family: "微软雅黑";
+            color: white !important;
+        }
+        h1{
+            color: #777 !important;
+        }
+        .jumbotron{
+            background: none;
+        }
+
+        .form-group:nth-child(1) div input {
+            border: 1px solid #777 !important;
+            font-size: 20px;
+            font-weight: bold;
+            background: #C0C0C0;
+        }
+
+        .form-group:nth-child(2) div input {
+            border: 1px solid #777 !important;
+            font-size: 20px;
+            font-weight: bold;
+            background: #C0C0C0;
+        }
+
+        .form-group:nth-child(3) div input {
+            border: 1px solid #777 !important;
+            font-size: 20px;
+            font-weight: bold;
+            background: #C0C0C0;
+        }
+
+
+        .container .row>div {
+            /* border: 1px solid #777; */
+        }
+
+        .container .row .col-md-10 {
+            padding: 30px;
+        }
+
+        .container .row .col-md-2 {
+            border: none;
+        }
+
+        .container .row>div ul li {
+            list-style: none;
+        }
+
+        .container .row>div label {
+            font-size: 20px;
+        }
+
+        textarea {
+            font-size: 18px !important;
+            resize: none;
+            border: 1px solid #777 !important;
+            background: #C0C0C0 !important;
+        }
+
+        .container .row .col-md-10 form .form-group:last-child {
+            position: relative;
+            bottom: 10px;
+        }
+
+        .container .row .col-md-10 form .form-group:last-child input:first-child {
+            position: absolute;
+            left: 30%;
+        }
+
+        .container .row .col-md-10 form .form-group:last-child input:last-child {
+            position: absolute;
+            right: 30%;
+        }
+
+        .col-md-2 ul {
+            padding: 20px 10px 10px;
+        }
+
+
+        .col-md-10 {
+        }
+
+        .col-md-2 ul li:first-child {
+            float: left;
+        }
+
+        .col-md-2 ul li {
+            margin: 0px auto 20px;
+        }
+
+        .col-md-2 {
+            padding: 60px 0px ;
+        }
+        h3{
+            color: #777 !important;
+        }
+    </style>
+</head>
+<body>
+<!-- <div id="div1">
+
+    <img src="picture/bannerbg.png" />
+</div> -->
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="page-header">修改文章</h1>
+        <div class="row">
+            <div class="col-md-10">
+                <form action="" method="">
+
+                    <div class="form-group">
+                        <label for="" class="control-label">文章详情：</label>
+                        <div class="">
+                            <textarea class="form-control" rows="15" id="textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" value="修改" class="btn btn-primary btn-lg" id="updatearticle"/>
+                        <input type="reset" value="取消" class="btn btn-danger btn-lg" id="consle"/>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <div class="list-group">
+                    <a href="mainpage.html" class="list-group-item ">
+                        <h3 class="glyphicon glyphicon-home">返回主页</h3>
+                    </a>
+                    <a href="/recycle.html" class="list-group-item ">
+                        <h3 class="glyphicon glyphicon-trash">回收站</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $("#consle").click(function () {
+        var message = confirm("温馨提示：\r你确定退出修改吗？");
+        if (message) {
+            window.location.href = "/mainpage.html";
+        }
+    });
+    (function ($) {
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+    })(jQuery);
+
+    $(document).ready(function () {
+        $.ajax({
+            type:"GET",
+            url:"/show",
+            dataType:"JSON",
+            data:{
+                id:$.getUrlParam('id'),
+            },
+            success: function(data){
+                var article =data["article"];
+                $("#textarea").val(article.content);
+            }
+        });
+    });
+
+    $("#updatearticle").click(function(){
+        $.ajax({
+            type:"POST",
+            url:"/updateArticle",
+            dataType:"JSON",
+            data:{
+                id:$.getUrlParam('id'),
+                content:$("#textarea").val(),
+            },
+            success:function(result){
+                alert("修改成功");
+                window.location.href="/mainpage.html";
+            },
+            error:function () {
+                alert("error");
+            }
+        });
+    });
+</script>
+</body>
+</html>

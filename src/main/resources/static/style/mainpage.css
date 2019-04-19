@@ -1,0 +1,106 @@
+#div1{ 
+    position:fixed; 
+    top:0; 
+    left:0; 
+    bottom:0; 
+    right:0; 
+    z-index:-1; 
+} 
+
+#div1 > img { 
+	position: absolute;
+	top: 0;
+	left: 0;
+    height:100%; 
+    width:100%; 
+    border:0; 
+}
+.username{
+    font-size: 30px;
+    margin-top: 20px;
+
+}
+.top{
+    position: relative;
+    height:130px;
+}
+
+body{
+    line-height: 1.7;
+}
+a,body{
+    color:#f69595;
+}
+.btn{
+    color:#000;
+}
+.side-bar{
+    float:left;
+    width: 15%;
+    position: fixed;
+}
+.side-bar>*{
+    padding: 10px;
+    text-align: center;
+    color: #777;
+}
+.main{
+    float: right;
+    width: 70%;
+    color: #555;
+}
+.header .logo{
+    font-size: 30px;
+    display: inline-block;
+    margin-bottom: 20px;
+    line-height: 1;
+}
+.side-bar .nav a,
+.side-bar .tag-list a{
+    display: block;
+    padding: 10px;
+    color: #777;
+    transition: color 200ms;
+    text-decoration: none;
+
+}
+.side-bar .nav a:hover,
+.side-bar .tag-list a:hover{
+    background: rgba(0,0,0,0.1);
+    color: #eee;
+
+}
+.side-bar .nav a{
+    font-weight: 700;
+}
+.article-list{
+    background: #fff;
+    padding: 20px 30px;
+    box-shadow: 0 0 3px rgba(0,0,0,.2);
+}
+.article-list .item a{
+    text-decoration: none;
+}
+.article-list .item .title,
+.article .item .title{
+    font-size: 22px;
+    font-weight: 700;
+    color: #555;
+}
+.article-list .item .status,
+.article .item .status{
+    font-size: 13px;
+    color: #ccc;
+}
+.article-list .item>*{
+    margin: 10px 0
+}
+.article-list .item{
+    margin-bottom: 20px;
+}
+.article-list button{
+    margin-right:5px !important;
+} 
+/**
+ * @Author :ZhengFeiFan
+ **/

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<!--导入名称空间，为了提示-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript"
+            src="/js/jquery-3.3.1.min.js"></script>
+    <link
+            href="/bs/css/bootstrap.css"
+            rel="stylesheet">
+    <script
+            src="/bs/js/bootstrap.js"></script>
+
+    <style type="text/css">
+        #div1 > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height:100%;
+            width:100%;
+            border:0;
+            z-index:-1;
+            opacity: 0.6;
+        }
+        #div2>img{
+            margin-top: 0 !important;
+            width: 100%;
+            height: 100%;
+        }
+        h1{
+            color: white;
+        }
+        th,td{
+            text-align: center;
+            font-size: 15px;
+        }
+        .page-header{
+            margin-top: 50px;
+        }        .row{
+            background:#e7edde;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div id="div1">
+    <img src="picture/recycleBG.jpg" />
+</div>
+
+
+
+<!--回收站页面-->
+<!-- 搭建显示页面 -->
+<div class="container">
+    <h1 class="page-header">回收站<a href="mainpage.html" class="btn btn-primary btn-lg pull-right" id="emp_add_modal_btn">返回文章主页</a></h1>
+    <!-- 显示表格数据 -->
+
+    <!-- 显示表格数据 -->
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover" id="emps_table">
+                <thead>
+                    <tr>
+                        <th >ID</th>
+                        <th>文章名</th>
+                        <th>用户名</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="div2"><img src="/picture/空图.png" alt=""></div>
+
+
+
+    <!-- 文章详情的模态框 -->
+    <div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">文章详情</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文章名</label>
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <label class="tName" name="tName"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文章用户名</label>
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <label class="tUserName" name="tUserName"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文章字数</label>
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <label class="tNumber" name="tNumber"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文章创建时间</label>
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <label class="tTxtCreateTime" name="tTxtCreateTime"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文章删除时间</label>
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <label class="tDeleteTime" name="tDeleteTime"></label>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="closemodal" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-danger" id="txt_delete_btn">删除</button>
+                    <button type="button" class="btn  btn-info" id="txt_restore_btn">还原</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<table class="table table-hover">
+    ...
+</table>
+
+
+<script type="text/javascript">
+    //1、页面加载完成以后，直接去发送ajax请求,要到分页数据
+    $(document).ready(function () {
+        $("#div2").hide();
+    })
+  
+    //进入回收站前先更新30天后的记录
+    $(function() {
+        $.ajax({
+            url: "/updateInfo",
+            type: "GET",
+            success: function(result) {
+                getAllInfo();
+            }
+        });
+    });
+
+    //得到当前用户的所有在回收站的文章
+    function getAllInfo() {
+        $.ajax({
+            url: "/querySimpleInfo",
+            type: "GET",
+            success: function(result) {
+                if (result.extend.allRecycleInfo==''){
+                    $("#div2").show();
+                    $("table").hide();
+                }
+                else
+                {
+                    build_text_table(result);
+                }
+
+            }
+        });
+    }
+
+    //将所有文章数据填入表格
+    function build_text_table(result) {
+        //清空table表格
+        $("#emps_table tbody").empty();
+
+        var txts = result.extend.allRecycleInfo;
+        
+        $.each(txts, function(index, txt) {
+            var tIdTd = $("<td></td>").append(txt.tId);
+            var tNameTd = $("<td></td>").append(txt.tName);
+            var tUserNameTd = $("<td></td>").append(txt.tUserName);
+            var btn = $("<button></button>").
+            addClass("btn btn-success btn-sm edit_btn col-sm-offset-4")
+                .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
+            //为编辑按钮添加一个传入de文章id的属性
+            btn.attr("edit_id", txt.tId);
+            $("<tr></tr>").append(tIdTd)
+                .append(tNameTd)
+                .append(tUserNameTd)
+                .append(btn)
+                .appendTo("#emps_table tbody");
+        });
+    }
+
+   //点击编辑按钮
+    $(document).on("click", ".edit_btn", function() {
+        getTxt($(this).attr("edit_id"));
+        //把员工的id传递给模态框的按钮
+        $("#txt_restore_btn").attr("restore_id", $(this).attr("edit_id"));
+        $("#txt_delete_btn").attr("delete_id", $(this).attr("edit_id"));
+        $("#empAddModal").modal({
+            backdrop: "static"
+        });
+
+    });
+
+    //点击模态框中的删除按钮
+    $("#txt_delete_btn").click(function() {
+        var message=confirm("是否彻底删除该文章？");
+        if (message) {
+            $("#closemodal").click();
+            var id = $("#txt_delete_btn").attr("delete_id");
+            $.ajax({
+                url: "/deletetotally",
+                data: "id=" + id,
+                type: "GET",
+                success: function(result) {
+                    $.ajax({
+                        url: "/querySimpleInfo",
+                        type: "GET",
+                        success: function(result) {
+                            build_text_table(result);
+                        }
+                    })
+                }
+            });
+        }
+
+
+    });
+
+   
+    //点击模态框中的还原按钮
+    $("#txt_restore_btn").click(function() {
+        var message=confirm("是否还原该文章？");
+        if (message)
+        {
+            $("#closemodal").click();
+            var id = $("#txt_restore_btn").attr("restore_id");
+            $.ajax({
+                url: "/restore",
+                data: "id=" + id,
+                type: "GET",
+                success: function(result) {
+                    //txtId用于重置isDelete字段
+                    var txtId=result.extend.txtId;
+                    restoreIsDelete(txtId);
+                    //还原后刷新回收站
+                    $.ajax({
+                        url: "/querySimpleInfo",
+                        type: "GET",
+                        success: function(result) {
+                            build_text_table(result);
+                        }
+                    })
+                }
+            });
+        }
+
+    });
+
+    function  restoreIsDelete(id)
+    {
+        $.ajax({
+            url: "/recycleTxtById",
+            data: "id=" + id,
+            type: "GET",
+            success: function(result) {
+
+            }
+        });
+    }
+
+    //将文章的具体信息填入到模态框中
+    function getTxt(id) {
+        $.ajax({
+            url: "/querySpecificInfo",
+            data: "id=" + id,
+            type: "GET",
+            success: function(result) {
+                //用于清空模态框的内容
+                $(".append").remove();
+                var empData = result.extend.recycleInfo;
+                $("<span></span>").addClass("append").append(empData.tName).appendTo(".tName");
+                $("<span></span>").addClass("append").append(empData.tUserName).appendTo(".tUserName");
+                $("<span></span>").addClass("append").append(parseInt(empData.tNumber)-3).appendTo(".tNumber");
+                $("<span></span>").addClass("append").append(renderTime(empData.tTxtCreateTime).toString().substring(0,10)).appendTo(".tTxtCreateTime");
+                $("<span></span>").addClass("append").append(renderTime(empData.tDeleteTime).toString().substring(0,10)).appendTo(".tDeleteTime");
+            }
+        });
+    }
+
+    function renderTime(date) {
+        var dateee = new Date(date).toJSON();
+        return new Date(+new Date(dateee) ).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+    }
+
+
+</script>
+</body>
+</html>

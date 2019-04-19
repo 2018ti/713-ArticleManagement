@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>login</title>
+		<link rel="stylesheet" href="style/login.css">
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	</head>
+	<body>
+		<form>
+			<h1>article management system</h1>
+			<div class="input">
+				<input id="username" type="text" placeholder="username" />	<!-- 输入用户名 -->
+			</div>
+			<div class="input">
+				<input id="password" type="password" placeholder="password" /><!-- 输入密码 -->
+			</div>
+			<div class="option">
+				<label><input type="checkbox" name="记住密码" style="width: 16px;height: 16px;" /><span>remember</span></label>	<!-- 记住密码 -->
+				<a href="" class="a1">forget?</a>	<!-- 忘记密码 -->
+				<a href="index.html"  class="a2">register</a>		<!-- 注册 -->
+			</div>
+			<div class="button">
+				<input id="submit" type="button" value="login" />	<!-- 提交 -->
+				<input id="cancle" type="reset" value="cancle" />	<!-- 取消 -->
+			</div>
+		</form>
+		<script type="text/javascript">
+			$("form").hide();	//加载页面时先隐藏表
+			
+			setInterval(function() {
+				$("form").slideDown(500);
+			}, 200);			//过0.2秒后出现表
+			
+			$("#submit").click(function(){
+				$.ajax({
+					type:"POST",
+					url:"/userLogin",
+					data:{
+						username:$("#username").val(),
+						password:$("#password").val()
+					},
+
+					dataType:"json",
+					success:function(data){
+						if (data["msg"]==0){
+							alert("登陆成功");
+							window.location.href="/mainpage.html";
+						}else {
+							alert("密码错误或者用户名不存在");
+						    window.location.href="/login.html";
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

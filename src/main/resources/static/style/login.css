@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'neo';
+    src: url("../font/NEOTERICc.ttf");
+}
+body {
+	background:linear-gradient(90deg,#211136, #bf5853);
+}
+
+h1 {
+	text-align: center;
+	color: #fff;
+	font-family: 'neo';
+	font-size: 30px;
+}
+
+form {
+	margin: 80px auto;
+	width: 400px;
+	height: 400px;
+	padding: 60px 50px 20px;
+	border-radius: 8px;
+	background-color: #e06267;
+}
+
+form .input input {
+	width: 320px;
+	height: 40px;
+	margin: 16px 40px;
+	outline: 0;
+	text-height: 40px;
+	background-color: #e06267;
+	border: none;
+    border-bottom: 1px solid #fff;
+	font-size: 20px;
+	color: white;
+}
+
+form .input input::-webkit-input-placeholder {
+	color: white;
+	font-family: "neo";
+}
+
+form .option {
+	margin-top: 30px;
+	width: 400px;
+	height: 40px;
+	font-size: 16px;
+	position: relative;
+}
+
+form .option label {
+	position: absolute;
+	left: 37px;
+	font-family: "neo";
+}
+
+form .option label input {
+	float: left;
+}
+
+form .option label input:hover {
+	box-shadow: inset 0 0 12px #fff;
+	
+}
+
+form .option label span {
+	float: left;
+	color: #fff;
+}
+
+form .option .a1 {
+	position: absolute;
+	right: 160px;
+	color: #fff;
+	font-family: "neo";
+}
+
+form .option .a2 {
+	position: absolute;
+	right: 40px;
+	color: #fff;
+	font-family: "neo";
+}
+
+form .option a:hover {
+	color: #211136;
+}
+
+form .button {
+	margin-top: 20px;
+	position: relative;
+}
+
+form .button input {
+	cursor: pointer;
+	border-radius: 3px;
+	border: 1px solid #fff;
+	color: #fff;
+	background-color: #e06267;
+	width: 50px;
+	height: 40px;
+	position: absolute;
+	font-size: 20px;
+	text-height: 40px;
+}
+
+form .button input:hover {
+	box-shadow: inset 0 0 40px aliceblue;
+}
+
+form .button>input:first-child {
+	left: 25%;
+	width: 80px;
+	font-family: "neo";
+}
+
+form .button>input:nth-child(2) {
+	position: absolute;
+	right: 25%;
+	width: 80px;
+	font-family: "neo";
+}

@@ -1,0 +1,109 @@
+* {  
+	margin: 0;
+	padding: 0;
+}
+
+#div1{ 
+    position:fixed; 
+    top:0; 
+    left:0; 
+    bottom:0; 
+    right:0; 
+    z-index:-1; 
+} 
+
+#div1 > img { 
+	position: absolute;
+	top: 0;
+	left: 0;
+    height:100%; 
+    width:100%; 
+    border:0; 
+}
+.top {
+	height: 60px;
+	width: 1200px;
+	margin: 0 auto;
+	background-color: #e7e8e3;
+	border-radius: 2px;
+	box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 0.1);
+}
+
+.top-left,.top-left a {
+	float: left;
+}
+.top a {
+	display: inline-block;
+	text-align: center;
+	line-height: 60px;
+	width: 100px;
+	border-radius: 2px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.top-rec:link,.top-rec:visited,.out:link,.out:visited {
+	color: #676768;
+}
+.top a:hover {
+	color: white;
+	background-color: #3f3f3f;
+}
+
+.top-art:link,.top-art:visited {
+	background-color: #3f3f3f;
+	color: white;
+}
+
+.top-right {
+	float: right;
+}
+.top span {
+	display: inline-block;
+	text-align: center;
+	line-height: 60px;
+	width: 200px;
+	color: #676768;
+	font-size: 14px;
+}
+.main {
+	margin: 15px auto;
+	width: 1100px;
+	background-color: white;
+	border-radius: 5px;
+}
+.operate {
+	background-color: #f8f8f8;
+	height: 30px;
+	border-radius: 5px;
+}
+
+.operate a:link,.operate a:visited {
+	color: #676768;
+}
+.edit {
+	float: left;
+}
+.download {
+	float:right;
+}
+.txt {
+	margin: 30px 50px;
+}
+
+h3 {
+	font: 32px PingFangSC-Regular,HelveticaNeue-Light,'Helvetica Neue Light','Microsoft YaHei',sans-serif;
+	height: 40px;
+    margin-bottom: 12px;
+	font-weight: 400;
+}
+.txt span {
+	display: inline-block;
+	font: 16px PingFangSC-Regular,'-apple-system',Simsun;
+	color: #96938d;
+	margin-bottom: 12px;
+}
+.txt-words {
+	font: 24px 'Microsoft YaHei',PingFangSC-Regular,HelveticaNeue-Light,'Helvetica Neue Light',sans-serif;
+	font-weight: 300;
+}
